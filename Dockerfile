@@ -1,7 +1,7 @@
 ARG GOPHERNOTES_VERSION=master
 ARG BASE_NOTEBOOK=jupyter/base-notebook:latest
 
-FROM golang:latest as builder
+FROM golang:latest AS builder
 ARG GOPHERNOTES_VERSION
 
 WORKDIR /clone
@@ -13,4 +13,4 @@ RUN go build -o gophernotes .
 FROM ${BASE_NOTEBOOK}
 
 COPY --from=builder /clone/gophernotes /bin/
-COPY --from=builder /clone/kernel/kernel.json kernel/logo* /usr/local/share/jupyter/kernels/go/
+COPY --from=builder /clone/kernel/kernel.json /clone/kernel/logo* /usr/local/share/jupyter/kernels/go/
